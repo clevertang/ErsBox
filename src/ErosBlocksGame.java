@@ -78,6 +78,9 @@ public class ErosBlocksGame extends JFrame {
 		show();
 		canvas.fanning();
 	}
+	/**
+	 * ´´½¨²Ëµ¥
+	 */
 	private void creatMenu(){
 		bar.add(mGame);
 		bar.add(mControl);
