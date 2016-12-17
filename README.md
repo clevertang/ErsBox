@@ -1,7 +1,7 @@
 # ErsBox
 俄罗斯方块游戏
 基于java语言，eclipse开发工具
-游戏包含四大类：
+游戏包含五大类：
 1.游戏主类ErsBlocksGame
 2.画布类GameCanvas
 3.控制类ControlPanel
