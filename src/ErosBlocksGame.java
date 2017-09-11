@@ -1,54 +1,53 @@
-
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 
-/*** ÓÃeclipse¿ª·¢µÄ¶íÂŞË¹·½¿éÓÎÏ·
+/*** ç”¨eclipseå¼€å‘çš„ä¿„ç½—æ–¯æ–¹å—æ¸¸æˆ
  * @author clevertang
  *@version 1.1
- * ÓÎÏ·Ö÷Àà£¬¼Ì³Ğ×ÔJFrame,¸ºÔğÓÎÏ·µÄÈ«¾Ö¿ØÖÆ
- * 1.Ò»¸ö»­²¼ÀàGameCanvasµÄÊµÀı
- *2.Ò»¸öÓÎÏ·¿éErsBlockµÄÊµÀı
- *Ò»¸ö¿ØÖÆ½çÃæControlPanelµÄÊµÀı
+ * æ¸¸æˆä¸»ç±»ï¼Œç»§æ‰¿è‡ªJFrame,è´Ÿè´£æ¸¸æˆçš„å…¨å±€æ§åˆ¶
+ * 1.ä¸€ä¸ªç”»å¸ƒç±»GameCanvasçš„å®ä¾‹
+ *2.ä¸€ä¸ªæ¸¸æˆå—ErsBlockçš„å®ä¾‹
+ *ä¸€ä¸ªæ§åˆ¶ç•Œé¢ControlPanelçš„å®ä¾‹
  */
 public class ErosBlocksGame extends JFrame {
-	//ÌîÂúÒ»ĞĞµÄ·ÖÊı
+	//å¡«æ»¡ä¸€è¡Œçš„åˆ†æ•°
 	public final static int alinescore=100;
-	//Éı¼¶·ÖÊı
+	//å‡çº§åˆ†æ•°
 	public final static int everyLevelscore=2000;
-	//×î´óµÄ¼¶Êı
+	//æœ€å¤§çš„çº§æ•°
 	public final static int maxLevel=10;
-	//Ä¬ÈÏ¼¶Êı
+	//é»˜è®¤çº§æ•°
 	public final static int initialLevel=5;
-	//»­²¼ÀàÊµÀı
+	//ç”»å¸ƒç±»å®ä¾‹
 	private GameCanvas canvas;
-	//·½¿éÀàÊµÀı
+	//æ–¹å—ç±»å®ä¾‹
 	private ErsBlock block;
-	
+
 	private boolean playing=false;
-	//¿ØÖÆÃæ°åÀàÊµÀı
+	//æ§åˆ¶é¢æ¿ç±»å®ä¾‹
 	private ControlPanel ctrlPanel;
 	private JMenuBar bar= new JMenuBar();
 	private JMenu
-		mGame=new JMenu("ÓÎÏ·"),
-		mControl=new JMenu("¿ØÖÆ"),
-		mHelp=new JMenu("°ïÖú"),
-		mInfo=new JMenu("ĞÅÏ¢");
+			mGame=new JMenu("æ¸¸æˆ"),
+			mControl=new JMenu("æ§åˆ¶"),
+			mHelp=new JMenu("å¸®åŠ©"),
+			mInfo=new JMenu("ä¿¡æ¯");
 	private JMenuItem
-	 	miNewGame=new JMenuItem("ĞÂÓÎÏ·"),	 	
-		miTurnHarder=new JMenuItem("Ôö¼ÓÄÑ¶È"),
-		miTurnEasier=new JMenuItem("½µµÍÄÑ¶È"),
-		miExit=new JMenuItem("ÍË³ö"),
-		miPlay=new JMenuItem("¿ªÊ¼"),
-		miPause=new JMenuItem("ÔİÍ£"),
-		miResume=new JMenuItem("¼ÌĞø"),
-		miStop=new JMenuItem("Í£Ö¹"),
-		miSourceInfo=new JMenuItem("°æ±¾£º1.0"),
-		miAuthor=new JMenuItem("×÷Õß£ºclevertang");
-	/**ÓÎÏ·Ö÷ÀàµÄ¹¹Ôì·½·¨
-	 * 
-	 * @param title String,´°¿Ú±êÌâ
+			miNewGame=new JMenuItem("æ–°æ¸¸æˆ"),
+			miTurnHarder=new JMenuItem("å¢åŠ éš¾åº¦"),
+			miTurnEasier=new JMenuItem("é™ä½éš¾åº¦"),
+			miExit=new JMenuItem("é€€å‡º"),
+			miPlay=new JMenuItem("å¼€å§‹"),
+			miPause=new JMenuItem("æš‚åœ"),
+			miResume=new JMenuItem("ç»§ç»­"),
+			miStop=new JMenuItem("åœæ­¢"),
+			miSourceInfo=new JMenuItem("ç‰ˆæœ¬ï¼š1.0"),
+			miAuthor=new JMenuItem("ä½œè€…ï¼šclevertang");
+	/**æ¸¸æˆä¸»ç±»çš„æ„é€ æ–¹æ³•
+	 *
+	 * @param title String,çª—å£æ ‡é¢˜
 	 */
 	public ErosBlocksGame(String title){
 		super(title);
@@ -62,12 +61,12 @@ public class ErosBlocksGame extends JFrame {
 		ctrlPanel=new ControlPanel(this);
 		container.add(canvas, BorderLayout.CENTER);
 		container.add(ctrlPanel, BorderLayout.EAST);
-		
+
 		addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent we){
 				stopGame();
 				System.exit(0);
-				
+
 			}
 		});
 		addComponentListener(new ComponentAdapter(){
@@ -79,7 +78,7 @@ public class ErosBlocksGame extends JFrame {
 		canvas.fanning();
 	}
 	/**
-	 * ´´½¨²Ëµ¥
+	 * åˆ›å»ºèœå•
 	 */
 	private void creatMenu(){
 		bar.add(mGame);
@@ -110,7 +109,7 @@ public class ErosBlocksGame extends JFrame {
 				setLevel(5);
 			}
 		});
-		
+
 		miTurnEasier.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
 				int curLevel=getLevel();
@@ -148,7 +147,7 @@ public class ErosBlocksGame extends JFrame {
 				stopGame();
 			}
 		});
-		
+
 	}
 	public void reset(){
 		ctrlPanel.reset();
@@ -213,13 +212,13 @@ public class ErosBlocksGame extends JFrame {
 			return true;
 		}
 		return false;
-		}
+	}
 	private void play(){
 		reset();
 		playing=true;
 		Thread thread=new Thread(new game());
 		thread.start();
-		
+
 	}
 	private void reportGameOver(){
 		JOptionPane.showMessageDialog(this, "GG");
@@ -233,7 +232,7 @@ public class ErosBlocksGame extends JFrame {
 					if(block.isAlive()){
 						try{
 							Thread.currentThread();
-							Thread.sleep(100);							
+							Thread.sleep(100);
 						}
 						catch(InterruptedException ie){
 							ie.printStackTrace();
@@ -286,9 +285,8 @@ public class ErosBlocksGame extends JFrame {
 		}
 	}
 	public static void main(String[] args){
-		new ErosBlocksGame("clevertangµÄ¶íÂŞË¹·½¿éÓÎÏ·");
-			
-		
+		new ErosBlocksGame("clevertangçš„ä¿„ç½—æ–¯æ–¹å—æ¸¸æˆ");
+
+
 	}
 }
-	

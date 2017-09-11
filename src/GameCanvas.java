@@ -3,7 +3,7 @@ import java.awt.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 
-class GameCanvas extends JPanel 
+class GameCanvas extends JPanel
 {
 	private Color backColor = Color.gray, frontColor = Color.green;
 	private int rows, cols, score = 0, scoreForLevelUpdate = 0;
@@ -14,16 +14,16 @@ class GameCanvas extends JPanel
 		this.rows = rows;
 		this.cols = cols;
 		boxes = new ErsBox[rows][cols];
-		for (int i = 0; i < boxes.length; i++) 
+		for (int i = 0; i < boxes.length; i++)
 		{
 			for (int j = 0; j < boxes[i].length; j++)
 			{
 				boxes[i][j] = new ErsBox(false);
 			}
 		}
-    }
+	}
 	public GameCanvas(int rows, int cols,
-	                  Color backColor, Color frontColor) 
+					  Color backColor, Color frontColor)
 	{
 		this(rows, cols);
 		this.backColor = backColor;
@@ -54,7 +54,7 @@ class GameCanvas extends JPanel
 	{
 		return cols;
 	}
-	public int getScore() 
+	public int getScore()
 	{
 		return score;
 	}
@@ -72,7 +72,7 @@ class GameCanvas extends JPanel
 			return null;
 		return (boxes[row][col]);
 	}
-	 
+
 	public void fanning()
 	{
 		boxWidth = getSize().width / cols;
@@ -81,20 +81,20 @@ class GameCanvas extends JPanel
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-        g.setColor(frontColor);
+		g.setColor(frontColor);
 		for (int i = 0; i < boxes.length; i++)
 		{
-			for (int j = 0; j < boxes[i].length; j++) 
+			for (int j = 0; j < boxes[i].length; j++)
 			{
 				g.setColor(boxes[i][j].isColorBox() ? frontColor : backColor);
 				g.fill3DRect(j * boxWidth, i * boxHeight,
-				        boxWidth, boxHeight, true);
+						boxWidth, boxHeight, true);
 			}
 		}
 	}
 	public synchronized void removeLine(int row)
 	{
-		for (int i = row; i > 0; i--) 
+		for (int i = row; i > 0; i--)
 		{
 			for (int j = 0; j < cols; j++)
 				boxes[i][j] = (ErsBox) boxes[i - 1][j].clone();
@@ -104,11 +104,11 @@ class GameCanvas extends JPanel
 		scoreForLevelUpdate += ErosBlocksGame.alinescore;
 		repaint();
 	}
-	public void reset() 
+	public void reset()
 	{
 		score = 0;
 		scoreForLevelUpdate = 0;
-		for (int i = 0; i < boxes.length; i++) 
+		for (int i = 0; i < boxes.length; i++)
 		{
 			for (int j = 0; j < boxes[i].length; j++)
 				boxes[i][j].setColor(false);
