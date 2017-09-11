@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
@@ -24,29 +25,29 @@ public class ErosBlocksGame extends JFrame {
 	private GameCanvas canvas;
 	//方块类实例
 	private ErsBlock block;
-
+	
 	private boolean playing=false;
 	//控制面板类实例
 	private ControlPanel ctrlPanel;
 	private JMenuBar bar= new JMenuBar();
 	private JMenu
-			mGame=new JMenu("游戏"),
-			mControl=new JMenu("控制"),
-			mHelp=new JMenu("帮助"),
-			mInfo=new JMenu("信息");
+		mGame=new JMenu("游戏"),
+		mControl=new JMenu("控制"),
+		mHelp=new JMenu("帮助"),
+		mInfo=new JMenu("信息");
 	private JMenuItem
-			miNewGame=new JMenuItem("新游戏"),
-			miTurnHarder=new JMenuItem("增加难度"),
-			miTurnEasier=new JMenuItem("降低难度"),
-			miExit=new JMenuItem("退出"),
-			miPlay=new JMenuItem("开始"),
-			miPause=new JMenuItem("暂停"),
-			miResume=new JMenuItem("继续"),
-			miStop=new JMenuItem("停止"),
-			miSourceInfo=new JMenuItem("版本：1.0"),
-			miAuthor=new JMenuItem("作者：clevertang");
+	 	miNewGame=new JMenuItem("新游戏"),	 	
+		miTurnHarder=new JMenuItem("增加难度"),
+		miTurnEasier=new JMenuItem("降低难度"),
+		miExit=new JMenuItem("退出"),
+		miPlay=new JMenuItem("开始"),
+		miPause=new JMenuItem("暂停"),
+		miResume=new JMenuItem("继续"),
+		miStop=new JMenuItem("停止"),
+		miSourceInfo=new JMenuItem("版本：1.0"),
+		miAuthor=new JMenuItem("作者：clevertang");
 	/**游戏主类的构造方法
-	 *
+	 * 
 	 * @param title String,窗口标题
 	 */
 	public ErosBlocksGame(String title){
@@ -61,12 +62,12 @@ public class ErosBlocksGame extends JFrame {
 		ctrlPanel=new ControlPanel(this);
 		container.add(canvas, BorderLayout.CENTER);
 		container.add(ctrlPanel, BorderLayout.EAST);
-
+		
 		addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent we){
 				stopGame();
 				System.exit(0);
-
+				
 			}
 		});
 		addComponentListener(new ComponentAdapter(){
@@ -109,7 +110,7 @@ public class ErosBlocksGame extends JFrame {
 				setLevel(5);
 			}
 		});
-
+		
 		miTurnEasier.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
 				int curLevel=getLevel();
@@ -147,7 +148,7 @@ public class ErosBlocksGame extends JFrame {
 				stopGame();
 			}
 		});
-
+		
 	}
 	public void reset(){
 		ctrlPanel.reset();
@@ -212,13 +213,13 @@ public class ErosBlocksGame extends JFrame {
 			return true;
 		}
 		return false;
-	}
+		}
 	private void play(){
 		reset();
 		playing=true;
 		Thread thread=new Thread(new game());
 		thread.start();
-
+		
 	}
 	private void reportGameOver(){
 		JOptionPane.showMessageDialog(this, "GG");
@@ -232,7 +233,7 @@ public class ErosBlocksGame extends JFrame {
 					if(block.isAlive()){
 						try{
 							Thread.currentThread();
-							Thread.sleep(100);
+							Thread.sleep(100);							
 						}
 						catch(InterruptedException ie){
 							ie.printStackTrace();
@@ -286,7 +287,8 @@ public class ErosBlocksGame extends JFrame {
 	}
 	public static void main(String[] args){
 		new ErosBlocksGame("clevertang的俄罗斯方块游戏");
-
-
+			
+		
 	}
 }
+	
