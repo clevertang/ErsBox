@@ -8,11 +8,11 @@ class ControlPanel extends JPanel
 	        tfLevel = new JTextField("" + 5),
 	        tfScore = new JTextField("0");
 	private JButton
-	        btPlay = new JButton("¿ªÊ¼"),
-	        btPause = new JButton("ÔİÍ£"),
-	        btStop = new JButton("Í£Ö¹"),
-	        btTurnLevelUp = new JButton("Ìá¸ßµÈ¼¶"),
-	        btTurnLevelDown = new JButton("½µµÍµÈ¼¶");
+	        btPlay = new JButton("å¼€å§‹"),
+	        btPause = new JButton("æš‚åœ"),
+	        btStop = new JButton("åœæ­¢"),
+	        btTurnLevelUp = new JButton("æé«˜ç­‰çº§"),
+	        btTurnLevelDown = new JButton("é™ä½ç­‰çº§");
 	private JPanel showbefore = new JPanel(new BorderLayout());
 	private ShowBeforePanel plShowBeforeBlock = new  ShowBeforePanel();
 	private JPanel plInfo = new JPanel(new GridLayout(4, 1));
@@ -22,11 +22,11 @@ class ControlPanel extends JPanel
 	public ControlPanel(final ErosBlocksGame game) {
 		setLayout(new GridLayout(3, 1, 0, 4));
 		this.game = game;
-		showbefore.add(new JLabel("ÏÂÒ»¸ö·½¿é"), BorderLayout.NORTH);
+		showbefore.add(new JLabel("ä¸‹ä¸€ä¸ªæ–¹å—"), BorderLayout.NORTH);
 		showbefore.add(plShowBeforeBlock);
-		plInfo.add(new JLabel("µÈ¼¶"));
+		plInfo.add(new JLabel("ç­‰çº§"));
 		plInfo.add(tfLevel);
-		plInfo.add(new JLabel("µÃ·Ö"));
+		plInfo.add(new JLabel("å¾—åˆ†"));
 		plInfo.add(tfScore); 
 		tfLevel.setEditable(false);
 		tfScore.setEditable(false);
@@ -46,7 +46,7 @@ class ControlPanel extends JPanel
 		});
 		btPause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				if (btPause.getText().equals(new String("ÔİÍ£"))) {
+				if (btPause.getText().equals(new String("æš‚åœ"))) {
 					game.pauseGame();
 				}
 				else 
@@ -127,7 +127,7 @@ class ControlPanel extends JPanel
 	}
 	public void setPauseButtonLabel(boolean pause) 
 	{
-		btPause.setText(pause ? "ÔİÍ£" : "¼ÌĞø");
+		btPause.setText(pause ? "æš‚åœ" : "ç»§ç»­");
 	}
 	public void reset() 
 	{
