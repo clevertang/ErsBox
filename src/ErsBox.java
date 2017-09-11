@@ -1,34 +1,34 @@
 import java.awt.*;
 
-class ErsBox implements Cloneable 
+class ErsBox implements Cloneable
 {
 	private boolean isColor;
 	private Dimension size = new Dimension();
- 
+
 	public ErsBox(boolean isColor)
 	{
 		this.isColor = isColor;
 	}
-	public boolean isColorBox() 
+	public boolean isColorBox()
 	{
 		return isColor;
 	}
-	public void setColor(boolean isColor) 
+	public void setColor(boolean isColor)
 	{
 		this.isColor = isColor;
 	}
-	public Dimension getSize() 
+	public Dimension getSize()
 	{
 		return size;
 	}
-	public void setSize(Dimension size) 
+	public void setSize(Dimension size)
 	{
 		this.size = size;
 	}
-	public Object clone() 
+	public Object clone()
 	{
 		Object cloned = null;
-		try 
+		try
 		{
 			cloned = super.clone();
 		} catch (Exception ex)

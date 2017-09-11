@@ -2,220 +2,211 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 import java.awt.event.*;
-class ControlPanel extends JPanel
-{
-	private JTextField
-	        tfLevel = new JTextField("" + 5),
-	        tfScore = new JTextField("0");
-	private JButton
-	        btPlay = new JButton("¿ªÊ¼"),
-	        btPause = new JButton("ÔÝÍ£"),
-	        btStop = new JButton("Í£Ö¹"),
-	        btTurnLevelUp = new JButton("Ìá¸ßµÈ¼¶"),
-	        btTurnLevelDown = new JButton("½µµÍµÈ¼¶");
-	private JPanel showbefore = new JPanel(new BorderLayout());
-	private ShowBeforePanel plShowBeforeBlock = new  ShowBeforePanel();
-	private JPanel plInfo = new JPanel(new GridLayout(4, 1));
-	private JPanel plButton = new JPanel(new GridLayout(5, 1));
-	private Timer timer;
-	private ErosBlocksGame game;
-	public ControlPanel(final ErosBlocksGame game) {
-		setLayout(new GridLayout(3, 1, 0, 4));
-		this.game = game;
-		showbefore.add(new JLabel("ÏÂÒ»¸ö·½¿é"), BorderLayout.NORTH);
-		showbefore.add(plShowBeforeBlock);
-		plInfo.add(new JLabel("µÈ¼¶"));
-		plInfo.add(tfLevel);
-		plInfo.add(new JLabel("µÃ·Ö"));
-		plInfo.add(tfScore); 
-		tfLevel.setEditable(false);
-		tfScore.setEditable(false);
-		plButton.add(btPlay);
-		plButton.add(btPause);
-		plButton.add(btStop);
-		plButton.add(btTurnLevelUp);
-		plButton.add(btTurnLevelDown);
-		add( showbefore);
-		add(plInfo);
-		add(plButton);
-		addKeyListener(new ControlKeyListener());
-		btPlay.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				game.playGame();
-			}
-		});
-		btPause.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				if (btPause.getText().equals(new String("ÔÝÍ£"))) {
-					game.pauseGame();
-				}
-				else 
-				{
-					game.resumeGame();
-				}
-			}
-		});
-		btStop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) 
-			{
-				game.stopGame();
-			}
-		});
-		btTurnLevelUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				try {
-					int level = Integer.parseInt(tfLevel.getText());
-					if (level < 10)
-						tfLevel.setText("" + (level + 1));
-				} catch (NumberFormatException e) {}
-				requestFocus();
-			}
-		});
-		btTurnLevelDown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) 
-			{
-				try {
-					int level = Integer.parseInt(tfLevel.getText());
-					if (level > 1)
-						tfLevel.setText("" + (level - 1));
-				    } catch (NumberFormatException e) {}
-				requestFocus();
-			}
-		});
-		addComponentListener(new ComponentAdapter() {
-			public void componentResized(ComponentEvent ce)
-			{
-				plShowBeforeBlock.fanning();
-			}
-		});
-		timer = new Timer(500, new ActionListener() {
-			public void actionPerformed(ActionEvent ae) 
-			{
-				tfScore.setText("" + game.getScore());
-				int scoreForLevelUpdate =
-				        game.getScoreForLevelUp();
-				if (scoreForLevelUpdate >= ErosBlocksGame.everyLevelscore
-				        && scoreForLevelUpdate > 0)
-					game.levelUp();
-			 }
-		});
-		timer.start();
-	}
-	 
-	public void setShowBeforeStyle(int style)
-	{
-		plShowBeforeBlock.setStyle(style);
-	}
-	 
-	public int getLevel() 
-	{
-		int level = 0;
-		try {
-			level = Integer.parseInt(tfLevel.getText());
-		} catch (NumberFormatException e) {}
-		return level;
-	}
 
-	public void setLevel(int level) 
-	{
-		if (level > 0 && level < 11)
-			tfLevel.setText("" + level);
-	}
-	public void setPlayButtonEnable(boolean enable)
-	{
-		btPlay.setEnabled(enable);
-	}
-	public void setPauseButtonLabel(boolean pause) 
-	{
-		btPause.setText(pause ? "ÔÝÍ£" : "¼ÌÐø");
-	}
-	public void reset() 
-	{
-		tfScore.setText("0");
-		plShowBeforeBlock.setStyle(0);
-	}
-	public void fanning()
-	{
-		plShowBeforeBlock.fanning();
-	}
-	private class ShowBeforePanel extends JPanel
-	{
-		private Color backColor = Color.darkGray, frontColor = Color.red;
-		private ErsBox[][] boxes =new ErsBox[ErsBlock.boxes_rows][ErsBlock.boxes_cols];
+class ControlPanel extends JPanel {
+    private JTextField
+            tfLevel = new JTextField("" + 5),
+            tfScore = new JTextField("0");
+    private JButton
+            btPlay = new JButton("å¼€å§‹"),
+            btPause = new JButton("æš‚åœ"),
+            btStop = new JButton("åœæ­¢"),
+            btTurnLevelUp = new JButton("å¢žåŠ ");
+    btTurnLevelDown =new
+
+    JButton("é™ä½Žéš¾åº¦");
+
+    private JPanel showbefore = new JPanel(new BorderLayout());
+    private ShowBeforePanel plShowBeforeBlock = new ShowBeforePanel();
+    private JPanel plInfo = new JPanel(new GridLayout(4, 1));
+    private JPanel plButton = new JPanel(new GridLayout(5, 1));
+    private Timer timer;
+    private ErosBlocksGame game;
+
+    public ControlPanel(final ErosBlocksGame game) {
+        setLayout(new GridLayout(3, 1, 0, 4));
+        this.game = game;
+        showbefore.add(new JLabel("ä¸‹ä¸€ä¸ªæ–¹å—"), BorderLayout.NORTH);
+        showbefore.add(plShowBeforeBlock);
+        plInfo.add(new JLabel("ç­‰çº§"));
+        plInfo.add(tfLevel);
+        plInfo.add(new JLabel("å¾—åˆ†"));
+        plInfo.add(tfScore);
+        tfLevel.setEditable(false);
+        tfScore.setEditable(false);
+        plButton.add(btPlay);
+        plButton.add(btPause);
+        plButton.add(btStop);
+        plButton.add(btTurnLevelUp);
+        plButton.add(btTurnLevelDown);
+        add(showbefore);
+        add(plInfo);
+        add(plButton);
+        addKeyListener(new ControlKeyListener());
+        btPlay.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                game.playGame();
+            }
+        });
+        btPause.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                if (btPause.getText().equals(new String("æš‚åœ"))) {
+                    game.pauseGame();
+                } else {
+                    game.resumeGame();
+                }
+            }
+        });
+        btStop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                game.stopGame();
+            }
+        });
+        btTurnLevelUp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    int level = Integer.parseInt(tfLevel.getText());
+                    if (level < 10)
+                        tfLevel.setText("" + (level + 1));
+                } catch (NumberFormatException e) {
+                }
+                requestFocus();
+            }
+        });
+        btTurnLevelDown.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    int level = Integer.parseInt(tfLevel.getText());
+                    if (level > 1)
+                        tfLevel.setText("" + (level - 1));
+                } catch (NumberFormatException e) {
+                }
+                requestFocus();
+            }
+        });
+        addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent ce) {
+                plShowBeforeBlock.fanning();
+            }
+        });
+        timer = new Timer(500, new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                tfScore.setText("" + game.getScore());
+                int scoreForLevelUpdate =
+                        game.getScoreForLevelUp();
+                if (scoreForLevelUpdate >= ErosBlocksGame.everyLevelscore
+                        && scoreForLevelUpdate > 0)
+                    game.levelUp();
+            }
+        });
+        timer.start();
+    }
+
+    public void setShowBeforeStyle(int style) {
+        plShowBeforeBlock.setStyle(style);
+    }
+
+    public int getLevel() {
+        int level = 0;
+        try {
+            level = Integer.parseInt(tfLevel.getText());
+        } catch (NumberFormatException e) {
+        }
+        return level;
+    }
+
+    public void setLevel(int level) {
+        if (level > 0 && level < 11)
+            tfLevel.setText("" + level);
+    }
+
+    public void setPlayButtonEnable(boolean enable) {
+        btPlay.setEnabled(enable);
+    }
+
+    public void setPauseButtonLabel(boolean pause) {
+        btPause.setText(pause ? "æš‚åœ" : "ç»§ç»­");
+    }
+
+    public void reset() {
+        tfScore.setText("0");
+        plShowBeforeBlock.setStyle(0);
+    }
+
+    public void fanning() {
+        plShowBeforeBlock.fanning();
+    }
+
+    private class ShowBeforePanel extends JPanel {
+        private Color backColor = Color.darkGray, frontColor = Color.red;
+        private ErsBox[][] boxes = new ErsBox[ErsBlock.boxes_rows][ErsBlock.boxes_cols];
         private int style, boxWidth, boxHeight;
-		private boolean isTiled = false;
+        private boolean isTiled = false;
 
-		public  ShowBeforePanel() 
-		{
-			for (int i = 0; i < boxes.length; i++)
-			{
-				for (int j = 0; j < boxes[i].length; j++)
-					boxes[i][j] = new ErsBox(false);
-			}
-		}
-		public  ShowBeforePanel(Color backColor, Color frontColor)
-		{
-			this();
-			this.backColor = backColor;
-			this.frontColor = frontColor;
-		}
+        public ShowBeforePanel() {
+            for (int i = 0; i < boxes.length; i++) {
+                for (int j = 0; j < boxes[i].length; j++)
+                    boxes[i][j] = new ErsBox(false);
+            }
+        }
 
-		 
-		public void setStyle(int style) 
-		{
-			this.style = style;
-			repaint();
-		}
-		public void paintComponent(Graphics g)
-		{
-			super.paintComponent(g);
-			if (!isTiled) 
-				fanning();
-			int key = 0x8000;
-			for (int i = 0; i < boxes.length; i++)
-			{
-				for (int j = 0; j < boxes[i].length; j++)
-				{
-					Color color = (((key & style) != 0) ? frontColor : backColor);
-					g.setColor(color);
-					g.fill3DRect(j * boxWidth, i * boxHeight,
-					        boxWidth, boxHeight, true);
-					key >>= 1;
-				}
-			}
-		}
-		public void fanning() 
-		{
-			boxWidth = getSize().width / ErsBlock.boxes_cols;
-			boxHeight = getSize().height / ErsBlock.boxes_rows;
-			isTiled = true;
-		}
-	}
-	private class ControlKeyListener extends KeyAdapter
-	{
-		public void keyPressed(KeyEvent ke)
-		{
-			if (!game.isPlaying()) 
-				return;
+        public ShowBeforePanel(Color backColor, Color frontColor) {
+            this();
+            this.backColor = backColor;
+            this.frontColor = frontColor;
+        }
 
-			ErsBlock block = game.getCurBlock();
-			switch (ke.getKeyCode())
-			{
-				case KeyEvent.VK_DOWN:
-					block.moveDown();
-					break;
-				case KeyEvent.VK_LEFT:
-					block.moveLeft();
-					break;
-				case KeyEvent.VK_RIGHT:
-					block.moveRight();
-					break;
-				case KeyEvent.VK_UP:
-					block.turnNext();
-					break;
-				default:
-					break;
-			}
-		}
-	}
+
+        public void setStyle(int style) {
+            this.style = style;
+            repaint();
+        }
+
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (!isTiled)
+                fanning();
+            int key = 0x8000;
+            for (int i = 0; i < boxes.length; i++) {
+                for (int j = 0; j < boxes[i].length; j++) {
+                    Color color = (((key & style) != 0) ? frontColor : backColor);
+                    g.setColor(color);
+                    g.fill3DRect(j * boxWidth, i * boxHeight,
+                            boxWidth, boxHeight, true);
+                    key >>= 1;
+                }
+            }
+        }
+
+        public void fanning() {
+            boxWidth = getSize().width / ErsBlock.boxes_cols;
+            boxHeight = getSize().height / ErsBlock.boxes_rows;
+            isTiled = true;
+        }
+    }
+
+    private class ControlKeyListener extends KeyAdapter {
+        public void keyPressed(KeyEvent ke) {
+            if (!game.isPlaying())
+                return;
+
+            ErsBlock block = game.getCurBlock();
+            switch (ke.getKeyCode()) {
+                case KeyEvent.VK_DOWN:
+                    block.moveDown();
+                    break;
+                case KeyEvent.VK_LEFT:
+                    block.moveLeft();
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    block.moveRight();
+                    break;
+                case KeyEvent.VK_UP:
+                    block.turnNext();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
